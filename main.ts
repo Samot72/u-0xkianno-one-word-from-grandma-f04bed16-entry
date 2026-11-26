@@ -16,6 +16,10 @@ function validate(word: string): void {
   if (word.trim() !== word || word.length === 0) {
     throw new Error("entry must not be empty or padded with whitespace");
   }
+  // Revision (coordinator): reject invisible format characters.
+  if (/[\u200B-\u200F\uFEFF\u00AD]/.test(word)) {
+    throw new Error("entry contains invisible format characters");
+  }
   if (/\s/.test(word)) {
     throw new Error("entry must be a single word with no whitespace");
   }
